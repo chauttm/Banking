@@ -1,34 +1,18 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.internal.invocation.Invocation;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
 import java.util.List;
 
 import static junit.framework.Assert.*;
 import static org.mockito.Mockito.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dse
- * Date: 6/6/13
- * Time: 9:37 PM
- * To change this template use File | Settings | File Templates.
- */
 public class TestAccount{
     BankAccountDao mockAccountDao = mock(BankAccountDao.class);
 
     @Before
     public void setUp () {
         reset(mockAccountDao);
-//        when(mockAccountDao.save(any(BankAccountDTO.class))).thenAnswer(new Answer() {
-//            @Override
-//            public BankAccountDTO answer(InvocationOnMock invocation) throws Throwable {
-//                return (BankAccountDTO)invocation.getArguments()[0];
-//            }
-//        });
         BankAccount.setBankAccountDao(mockAccountDao);
     }
 
@@ -73,9 +57,8 @@ public class TestAccount{
         assertEquals(timeArgument.getValue().longValue(), 0L);
     }
 
-
     @Test
-    public void canGetAccountDTOFromDB() {
+    public void canGetAccountDTOFromDao() {
         BankAccountDTO accountDTO = BankAccount.findByAccountNumber("1234567890");
         verify(mockAccountDao).findByAccountNumber("1234567890");
     }
